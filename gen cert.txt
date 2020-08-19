@@ -1,0 +1,6 @@
+# the DNSName MUST match the host name binding or Chrome cracks it. Also, we must have a SAN (SubjectAltName) or Chrome...
+$siteName = "racs.local"
+$Root = New-SelfSignedCertificate -CertStoreLocation Cert:\LocalMachine\My -DnsName $siteName -KeyUsage KeyEncipherment,DigitalSignature,CertSign -KeyAlgorithm RSA -KeyLength 2048 -NotAfter (Get-Date).AddYears(6)
+
+# ps doesn't support copying certs :( Open certman and COPY it from personal to trusted
+#Move-Item (Join-Path Cert:\LocalMachine\My $Root.Thumbprint) -Destination Cert:\LocalMachine\Root
